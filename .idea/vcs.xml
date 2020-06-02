@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/academia-hugo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/aether" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/ananke" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/anatole" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/devise" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/hugo-future-imperfect" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/hugo-theme-cleanwhite" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/hugo-theme-console" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/newsroom" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/rocinante" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/themes/aether" vcs="Git" />
+  </component>
+</project>

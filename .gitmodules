@@ -1,0 +1,21 @@
+[submodule "themes/ananke"]
+	path = themes/ananke
+	url = https://github.com/budparr/gohugo-theme-ananke.git
+[submodule "themes/hugo-theme-console"]
+	path = themes/hugo-theme-console
+	url = https://github.com/mrmierzejewski/hugo-theme-console.git
+[submodule "themes/hugo-theme-cleanwhite"]
+	path = themes/hugo-theme-cleanwhite
+	url = https://github.com/zhaohuabing/hugo-theme-cleanwhite.git
+[submodule "themes/newsroom"]
+	path = themes/newsroom
+	url = https://github.com/onweru/newsroom.git
+[submodule "themes/rocinante"]
+	path = themes/rocinante
+	url = https://github.com/mavidser/hugo-rocinante.git
+[submodule "themes/devise"]
+	path = themes/devise
+	url = https://github.com/austingebauer/devise.git
+[submodule "themes/anatole"]
+	path = themes/anatole
+	url = https://github.com/lxndrblz/anatole.git
