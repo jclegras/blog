@@ -2,6 +2,8 @@
 
 BLOG_DIRECTORY="../jclegras.github.io"
 
+git add -A . && \
+git commit -m "update the blog" && \
 rm -rf $BLOG_DIRECTORY/* && \
 hugo && \
 cp -vr public/* $BLOG_DIRECTORY && \
