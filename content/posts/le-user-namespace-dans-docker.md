@@ -1,8 +1,9 @@
----
-title: "Le user namespace dans Docker"
-date: 2020-06-01T13:35:49+02:00
-draft: false
----
++++
+author = "Jean-Charles Legras"
+title =  "Le user namespace dans Docker"
+date = "2020-06-01"
+tags = ["docker", "namespace", "linux", "devops"]
++++
 
 ## Avant l'arrivée du user namespace dans Docker
 
