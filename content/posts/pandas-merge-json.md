@@ -135,7 +135,12 @@ print(df1AndDf2.to_json(orient="records"))
 ## Résumé
 
 C'est un exemple inutile mais il permet de voir comment on peut fusionner deux listes json, objet par objet, en fonction d'un pivot, d'une clé.
-Nous ne sommes pas contraints aux left joins, Pandas permet plusieurs types de jointures calquées sur le modèle SQL
+Nous ne sommes pas contraints aux left joins, Pandas permet plusieurs types de jointures calquées sur le modèle SQL.
+
+Pandas est un outil très puissant qui permet bien d'autres choses.
+En effet, ce dernier a pour but d'être le bloc de construction fondamental de haut-niveau pour faire de l'analyse de données réaliste ancrée dans le monde réel, [rien que ça](https://pandas.pydata.org/about/index.html).
+
+En bref, ses créateurs/contributeurs veulent en faire l'outil open source le plus puissant et flexible de tous les langages concernant le domaine de l'analyse/manipulation de données.
 
 ## Ressources
 
