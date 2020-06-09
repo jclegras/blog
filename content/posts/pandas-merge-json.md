@@ -141,5 +141,5 @@ Nous ne sommes pas contraints aux left joins, Pandas permet plusieurs types de j
 
 * [Pandas](https://pandas.pydata.org/)
 * [Merge de data frames](https://pandas.pydata.org/docs/getting_started/intro_tutorials/08_combine_dataframes.html)
-* [Types de jointures supportés](https://pandas.pydata.org/docs/user_guide/merging.html#merging-join)
+* [Jointures supportées](https://pandas.pydata.org/docs/user_guide/merging.html#merging-join)
 * [Comparaison avec SQL](https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sql.html#compare-with-sql-join)
