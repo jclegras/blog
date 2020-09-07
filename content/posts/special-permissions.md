@@ -184,10 +184,32 @@ __Note__: *setuid* est ignoré sur un répertoire sous Linux.
 
 #### Sticky bit (plus précisément ici : restricted deletion flag)
 
+__Rappel__ : dès lors qu'on possède les droits en écriture sur un répertoire, on peut supprimer les fichiers qu'il contient,
+qu'on possède les droits en écriture sur le fichier ou non.
+
+Si on ne possède pas les droits sur le fichier on aura seulement un prompt d'avertissement :
+
+{{< highlight bash >}}
+$ mkdir directory && \
+  touch directory/root_file && \
+  sudo chown -R root:root directory/root_file && \
+  chmod 777 && \
+  stat -c "%a %A %U:%G %n" my-directory
+
+777 drwxrwxrwx jclegras:jclegras directory/
+
+$ stat -c "%a %A %U:%G %n" directory/root_file
+
+664 -rw-rw-r-- root:root directory/root_file
+
+$ rm -v directory/root_file
+
+rm: remove write-protected regular empty file 'directory/root_file'? y
+removed 'directory/root_file'
+{{< /highlight >}}
+
 __Besoin__ : protéger les fichiers présents dans un répertoire à son seul propriétaire uniquement (suppression/renommage)
 
-__Rappel__ : dès lors qu'on possède les droits en écriture sur un répertoire, on peut supprimer les fichiers qu'il contient,
-qu'on possède les droits en écriture sur le fichier ou non
 
 {{< highlight bash >}}
 $ stat -c "%a %A %U:%G %n" mydir
