@@ -8,6 +8,16 @@ tags = ["setuid", "setgid", "sticky bit", "special permissions", "restricted del
 
 ## Les permissions spéciales sous Linux
 
+### Résumé
+
+Je vous présente ici les permissions dites spéciales qu'on utilise moins souvent que les permissions standards.
+
+Pour commencer, nous allons parler **setuid** et **setgid** qu'on peut setter sur les fichiers avec un petit programme Golang pour voir les choses.
+
+Ensuite, nous examinerons le **setgid** mais cette fois-ci sur des répertoires.
+
+Finalement, on s'intéressera au **sticky bit** sur les répertoires.
+
 ### Permissions spéciales sur un fichier
 
 #### setuid/setgid
@@ -174,7 +184,7 @@ __Note__: *setuid* est ignoré sur un répertoire sous Linux.
 
 #### Sticky bit (plus précisément ici : restricted deletion flag)
 
-__Besoin__ : protéger les fichiers présents dans un répertoire à son seul propriétaire seulement (suppression/renommage)
+__Besoin__ : protéger les fichiers présents dans un répertoire à son seul propriétaire uniquement (suppression/renommage)
 
 __Rappel__ : dès lors qu'on possède les droits en écriture sur un répertoire, on peut supprimer les fichiers qu'il contient,
 qu'on possède les droits en écriture sur le fichier ou non
