@@ -191,9 +191,9 @@ Si on ne possède pas les droits sur le fichier on aura seulement un prompt d'av
 
 {{< highlight bash >}}
 $ mkdir directory && \
+  chmod 777 directory && \
   touch directory/root_file && \
   sudo chown -R root:root directory/root_file && \
-  chmod 777 && \
   stat -c "%a %A %U:%G %n" my-directory
 
 777 drwxrwxrwx jclegras:jclegras directory/
