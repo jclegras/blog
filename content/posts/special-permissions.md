@@ -18,6 +18,8 @@ Ensuite, nous examinerons le **setgid** mais cette fois-ci sur des répertoires.
 
 Finalement, on s'intéressera au **sticky bit** sur les répertoires.
 
+Pour conclure, on jettera un oeil à une fonctionnalité de Kubernetes qui fait usage du **setgid**.
+
 ### Permissions spéciales sur un fichier
 
 #### setuid/setgid
@@ -296,6 +298,103 @@ drwxrwxrwt 2 root root 4096 Feb 26  2020 /var/lib/docker/overlay2/6daa7569532907
 Selon les [man pages Linux](https://man7.org/linux/man-pages/man1/chmod.1.html#RESTRICTED_DELETION_FLAG_OR_STICKY_BIT), on apprend finalement que le terme *sticky bit* est réservé au bit lorsqu'il est positionné sur un fichier.
 Sur les nouveaux systèmes, le sticky bit est ignoré lorsqu'il concerne les fichiers.
 Lorsque ce bit est posé sur un répertoire, il se nomme *restricted deletion flag*. Ce qui est décrit plus haut montre son fonctionnement.
+
+### Kubernetes
+
+Une feature située au niveau du [PodSecurityContext](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/) utilise le setgid pour le partage de (certains types) de volumes entre plusieurs conteneurs : *spec.fsGroup*.
+
+Voici un YAML d'exemple pour montrer cette feature :
+
+{{< highlight yaml >}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: hello-world
+   labels:
+     app: hello-world
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-world
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      securityContext:
+        fsGroup: 555
+      containers:
+      - name: first
+        image: alpine
+        command: ["/bin/sleep", "999999"]
+        securityContext:
+          runAsUser: 1111
+        volumeMounts:
+        - name: shared-volume
+          mountPath: /volume
+      - name: second
+        image: alpine
+        command: ["/bin/sleep", "999999"]
+        securityContext:
+          runAsUser: 2222
+        volumeMounts:
+        - name: shared-volume
+          mountPath: /volume
+      volumes:
+      - name: shared-volume
+        emptyDir:
+{{< /highlight >}}
+
+Montrons le *setgid* à l'oeuvre avec cette suite de commandes Bash :
+
+{{< highlight bash >}}
+$ kubectl exec -it hello-world-bd78cdd6-pm4tq -c first -- sh
+# Ou tout autre nom qu'aura pris votre Pod
+
+/ $ id
+
+uid=1111 gid=0(root) groups=555
+# Le user d'UID 1111 a un groupe supplémentaire : 555
+
+/ $ stat -c "%a %A %u:%g" /volume
+
+2777 drwxrwsrwx 0:555
+# On reconnait l'octet de haut niveau qui vaut 2 (setgid)
+
+/ $ touch /volume/first_container && \
+  stat -c "%a %A %u:%g" /volume/first_container
+
+644 -rw-r--r-- 1111:555
+# Le GID du fichier créé est égale au GID du répertoire parent
+#  Sans le GID, le fichier aurait eu les perm 1111:0
+
+/ $ ^D
+
+$ kubectl exec -it hello-world-bd78cdd6-pm4tq -c second -- sh
+
+/ $ id
+
+uid=2222 gid=0(root) groups=555
+# Le user d'UID 2222 a un groupe supplémentaire : 555
+
+/ $ touch /volume/second_container && \
+  stat -c "%a %A %u:%g" /volume/second_container
+
+644 -rw-r--r-- 2222:555
+# Le GID du fichier créé est égale au GID du répertoire parent
+#  Sans le GID, le fichier aurait eu les perm 2222:0
+
+
+/ $ stat -c "%a %A %u:%g" /volume/\*
+
+644 -rw-r--r-- 1111:555 /volume/first_container
+644 -rw-r--r-- 2222:555 /volume/second_container
+# Le conteneur 'first' peut lire le contenu du fichier 
+#   appartenant au conteneur 'second' et vice versa
+{{< /highlight >}}
+
+
 
 ## Ressources
 
